@@ -99,6 +99,8 @@ module.exports = class extends Generator {
     var self = this;
     this.npmInstall(null, {}, function() {
       self.spawnCommandSync("grunt", ["wfmTemplate:build"]);
+      // Make step available globally (for local development)
+      self.spawnCommandSync("npm", ["link"]);
     });
   }
 };
