@@ -1,4 +1,4 @@
-# generator-rcstep [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+# generator-rcstep [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
 > RainCatcher Step Generator
 
 Based on https://github.com/feedhenry-raincatcher/step-template
