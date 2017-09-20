@@ -96,7 +96,9 @@ module.exports = class extends Generator {
     if (this.mkdirBool) {
       process.chdir(npmdir);
     }
-    this.npmInstall();
-    this.spawnCommandSync("grunt wfmTemplate:build");
+    var self = this;
+    this.npmInstall(null, {}, function() {
+      self.spawnCommandSync("grunt", ["wfmTemplate:build"]);
+    });
   }
 };
