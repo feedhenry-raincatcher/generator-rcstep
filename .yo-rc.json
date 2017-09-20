@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Wojciech Trocki",
+      "authorEmail": "wtrocki@redhat.com",
+      "authorUrl": "metawired.eu"
+    }
+  }
+}
