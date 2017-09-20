@@ -19,6 +19,12 @@ module.exports = class extends Generator {
       // Defaults to the project's folder name if the input is skipped
       default: this.appName || array[array.length - 1]
     }, {
+      type: 'input',
+      name: 'description',
+      message: 'Your step description',
+      // Defaults to the project's folder name if the input is skipped
+      default: this.description || "Custom RainCatcher step"
+    }, {
       type: 'confirm',
       name: 'mkdirBool',
       message: 'Would you like to create a folder?',
@@ -29,13 +35,14 @@ module.exports = class extends Generator {
       const done = this.async();
       this.inputs = props;
       this.appName = this.inputs.appName.trim().split(' ').join('-');
+      this.description = this.inputs.description.trim();
 
       return this.prompt(prompts[2]).then(prop => {
         this.inputs.mkdirBool = prop.mkdirBool;
         this.mkdirBool = prop.mkdirBool;
         done();
       })
-      .catch(err => console.error(err));
+        .catch(err => console.error(err));
     });
   }
 
@@ -50,20 +57,37 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath(path.join(copyPath, 'package.json')), {
+        appName: this.appName,
+        description: this.description
+      }
+    );
+    // Copy grunt
+    this.fs.copyTpl(
+      this.templatePath('Gruntfile.js'),
+      this.destinationPath(path.join(copyPath, 'Gruntfile.js')), {
         appName: this.appName
       }
     );
 
-    // All other files & directories
-    this.fs.copy(
-      [
-        this.templatePath('**.!(json)'),
-        this.templatePath('app'),
-        this.templatePath('db'),
-        this.templatePath('public'),
-        this.templatePath('server')
-      ], this.destinationPath(copyPath)
+    // Copy source code
+    this.fs.copyTpl(
+      this.templatePath('lib'),
+      this.destinationPath(path.join(copyPath, 'lib')), {
+        appName: this.appName,
+        description: this.description
+      }
     );
+
+    // Copy templates
+    this.fs.copy(this.templatePath('template/base-form.tpl.html'),
+      this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '-form.tpl.html')));
+    this.fs.copy(this.templatePath('template/base.tpl.html'),
+      this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '.tpl.html')));
+
+    // All static root files
+    this.fs.copy(this.templatePath('static/README.md'), this.destinationPath(path.join(copyPath, 'README.md')));
+    this.fs.copy(this.templatePath('static/eslintrc'), this.destinationPath(path.join(copyPath, '.eslintrc')));
+    this.fs.copy(this.templatePath('static/gitignore'), this.destinationPath(path.join(copyPath, '.gitignore')));
   }
 
   install() {
@@ -73,5 +97,6 @@ module.exports = class extends Generator {
       process.chdir(npmdir);
     }
     this.npmInstall();
+    this.spawnCommandSync("grunt wfmTemplate:build");
   }
 };

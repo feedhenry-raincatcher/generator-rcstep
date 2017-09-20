@@ -1,0 +1,9 @@
+{
+  "code": "<%=appName%>-form",
+  "name": "<%=appName%> Form",
+  "description": "<%=description%>",
+  "templates": {
+    "form": "<<%=appName%>-form></<%=appName%>-form>",
+    "view": "<<%=appName%>></<%=appName%>>"
+  }
+}
