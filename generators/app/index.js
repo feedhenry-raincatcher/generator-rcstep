@@ -81,8 +81,10 @@ module.exports = class extends Generator {
     // Copy templates
     this.fs.copy(this.templatePath('template/base-form.tpl.html'),
       this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '-form.tpl.html')));
-    this.fs.copy(this.templatePath('template/base.tpl.html'),
-      this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '.tpl.html')));
+    this.fs.copyTpl(this.templatePath('template/base.tpl.html'),
+      this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '.tpl.html')), {
+        appName: this.appName
+      });
 
     // All static root files
     this.fs.copy(this.templatePath('static/README.md'), this.destinationPath(path.join(copyPath, 'README.md')));
