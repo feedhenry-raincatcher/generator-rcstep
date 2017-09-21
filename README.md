@@ -12,15 +12,20 @@ npm install -g yo
 npm install -g generator-rcstep
 ```
 
-Then generate your new project:
+Then generate your new step:
 
 ```bash
 yo rcstep
 ```
 
+## Documentation
+
+Please follow official RainCatcher documentation or step documentation:
+https://github.com/feedhenry-raincatcher/step-template
+
 ## License
 
-MIT © [Wojciech Trocki]
+MIT
 
 
 [npm-image]: https://badge.fury.io/js/generator-rcstep.svg
