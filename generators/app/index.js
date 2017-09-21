@@ -34,7 +34,8 @@ module.exports = class extends Generator {
     return this.prompt(prompts.slice(0, 2)).then(props => {
       const done = this.async();
       this.inputs = props;
-      this.appName = this.inputs.appName.trim().split(' ').join('-');
+      this.stepTitle = this.inputs.appName;
+      this.appName = this.inputs.appName.trim().toLowerCase().split(' ').join('-');
       this.description = this.inputs.description.trim();
 
       return this.prompt(prompts[2]).then(prop => {
@@ -74,6 +75,7 @@ module.exports = class extends Generator {
       this.templatePath('lib'),
       this.destinationPath(path.join(copyPath, 'lib')), {
         appName: this.appName,
+        stepTitle: this.stepTitle,
         description: this.description
       }
     );
@@ -83,7 +85,7 @@ module.exports = class extends Generator {
       this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '-form.tpl.html')));
     this.fs.copyTpl(this.templatePath('template/base.tpl.html'),
       this.destinationPath(path.join(copyPath, 'lib/angular/template/' + this.appName + '.tpl.html')), {
-        appName: this.appName
+        stepTitle: this.stepTitle
       });
 
     // All static root files

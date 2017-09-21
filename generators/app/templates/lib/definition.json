@@ -1,6 +1,6 @@
 {
   "code": "<%=appName%>-form",
-  "name": "<%=appName%> Form",
+  "name": "<%=stepTitle%> Form",
   "description": "<%=description%>",
   "templates": {
     "form": "<<%=appName%>-form></<%=appName%>-form>",
