@@ -34,6 +34,7 @@ module.exports = class extends Generator {
     return this.prompt(prompts.slice(0, 2)).then(props => {
       const done = this.async();
       this.inputs = props;
+
       this.stepTitle = this.inputs.appName;
       this.appName = this.inputs.appName.trim().toLowerCase().split(' ').join('-');
       this.description = this.inputs.description.trim();
