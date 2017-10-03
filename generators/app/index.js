@@ -35,8 +35,8 @@ module.exports = class extends Generator {
       const done = this.async();
       this.inputs = props;
 
-      if (this.inputs.appName.substr(0,4).toLowerCase() === 'step') {
-        this.stepTitle = this.inputs.appName.slice(4, this.inputs.appName.length);
+      if (this.inputs.appName.startsWith('step-')) {
+        this.stepTitle = this.inputs.appName.replace('step-', '');
       } else {
         this.stepTitle = this.inputs.appName;
       }
